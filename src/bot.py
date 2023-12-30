@@ -126,12 +126,15 @@ async def imagine(interaction, model: str, prompt: str):
     except Exception as e:
         await interaction.followup.send(str(e))
 
-
+# Allows for the bot to have a "personality." You can add anything you want here, it gets added before the prompt given in the command. As an example I used "in the style of william shakespeare" to show that it can be used to write in a certain style
+prefix_variable = "Reply to this prompt in the style of william shakespeare:"
 
 @bot.tree.command(name="ask", description="Ask a model a question.")
 @describe(model=f"Model to use. Choose between {', '.join(textCompModels)}")
 @describe(prompt="Your prompt.")
 async def ask(interaction, model: str, prompt: str):
+    global prefix_variable  # Reference the global variable
+
     if model.lower() not in textCompModels:
         await interaction.response.send_message(
             f"**Error:** Model not found! Choose a model between `{', '.join(textCompModels)}`."
@@ -139,7 +142,11 @@ async def ask(interaction, model: str, prompt: str):
         return
     try:
         await interaction.response.defer()
-        resp = await AsyncClient.create_completion(model, prompt)
+
+        # Concatenate the global prefix variable with the prompt
+        full_prompt = f"{prefix_variable} {prompt}"
+
+        resp = await AsyncClient.create_completion(model, full_prompt)
         if len(resp) <= 2000:
             await interaction.followup.send(resp)
         else:
