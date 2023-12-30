@@ -1,20 +1,18 @@
-# freeGPT-discord
+# SAM, a fork of freeGPT-discord
 
 Discord chatbot and image generator powered by freeGPT.
 
-## Support this repository:
-- ⭐ **Star the project:** Star this and the [freeGPT repository](https://github.com/Ruu3f/freeGPT). It means a lot to me! 💕
-- 🎉 **Join my Discord Server:** Chat with me and others. [Join here](https://dsc.gg/devhub-rsgh):
+Join the SAM support server with for help with setting up the bot, access to the official nsfw prompt blacklist, and access to beta updates. (The server also includes a bot running the script
 
-[![DiscordWidget](https://discordapp.com/api/guilds/1137347499414278204/widget.png?style=banner2)](https://dsc.gg/devhub-rsgh)
+https://discord.gg/gNvqqdzF
 
 ## Getting Started:
 
-1. **Download the Source Code:** Start by downloading the bot's source code.
+1. **Download the Source Code:** Start by downloading the bot's source code. ``git clone https://github.com/Dumbation42/sam-discord-ai-bot``
 
 2. **Install Dependencies:** Open your terminal and run:
 ```pip install -r requirements.txt```
-
+this might not install everything, in that case run the script and install the dependancys until it quits giving errors
 3. **Application Setup:**
     - Create a new application on the [Discord Developer Portal](https://discord.com/developers).
     - In the app's settings, enable the `message content` intent and copy the token.
@@ -28,4 +26,4 @@ Discord chatbot and image generator powered by freeGPT.
   ```
 
 6. **Run the Bot:** Open your terminal and run:
-```python bot.py```
+```python bot.py ```
