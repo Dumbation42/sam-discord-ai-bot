@@ -2,7 +2,7 @@
 
 Discord chatbot and image generator powered by freeGPT.
 
-Join the SAM support server with for help with setting up the bot, access to the official nsfw prompt blacklist, and access to beta updates. (The server also includes a bot running the script
+Join the SAM support server for help with setting up the bot, access to the official nsfw prompt blacklist, and access to beta updates.
 
 https://discord.gg/gNvqqdzF
 
@@ -26,4 +26,5 @@ this might not install everything, in that case run the script and install the d
   ```
 
 6. **Run the Bot:** Open your terminal and run:
-```python bot.py ```
+```cd sam-discord-ai-bot/src ```
+```python bot.py```
