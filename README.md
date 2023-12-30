@@ -2,7 +2,7 @@
 
 Discord chatbot and image generator powered by freeGPT.
 
-Join the SAM support server for help with setting up the bot, access to the official nsfw prompt blacklist, and access to beta updates.
+Join the SAM support server for help with setting up the bot and access to beta updates.
 
 https://discord.gg/gNvqqdzF
 
