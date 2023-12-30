@@ -20,13 +20,13 @@ intents = Intents.default()
 intents.message_content = True
 bot = Bot(command_prefix="!", intents=intents, help_command=None)
 db = None
-textCompModels = ["gpt3", "gpt4", "alpaca_7b", "falcon_40b"]
+textCompModels = ["gpt3", "gpt4"]
 imageGenModels = ["prodia", "pollinations"]
 
 
 @bot.event
 async def on_ready():
-    print(f"\033[1;94m INFO \033[0m| {bot.user} has connected to Discord.")
+    print(f"\033[1;94m INFO \033[0m| {bot.user} has been enabled.")
     global db
     db = await connect("database.db")
     async with db.cursor() as cursor:
@@ -40,8 +40,8 @@ async def on_ready():
         await bot.change_presence(
             status=Status.online,
             activity=Activity(
-                type=ActivityType.watching,
-                name=f"{len(bot.guilds)} servers | /help",
+                type=ActivityType.playing,
+                name=f"SAM, based on freeGPT",
             ),
         )
         await sleep(300)
@@ -88,47 +88,16 @@ async def on_app_command_error(interaction, error):
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
 
 
-@bot.tree.command(name="help", description="Get help.")
-async def help(interaction):
-    embed = Embed(
-        title="Help Menu",
-        color=0x00FFFF,
-    )
+blacklisted_words = ["example1", "example2"]  # Add words/phrases to this list to blacklist them from being generated. This function is used to prevent the bot from generating pornographic content.
 
-    embed.add_field(
-        name="Models:",
-        value=f"**Text Completion:** `{', '.join(textCompModels)}`\n**Image Generation:** `{', '.join(imageGenModels)}`",
-        inline=False,
-    )
+def check_for_nsfw_content(content):
+    content_lower = content.lower()
+    for word in blacklisted_words:
+        if word in content_lower:
+            return True  # NSFW content found
+    return False  # No NSFW content found
 
-    embed.add_field(
-        name="Chatbot",
-        value="Setup the chatbot: `/setup-chatbot`.\nReset the chatbot: `/reset-chatbot`.",
-        inline=False,
-    )
-    view = View()
-    view.add_item(
-        Button(
-            label="Invite Me",
-            url="https://dsc.gg/freeGPT-discord",
-        )
-    )
-    view.add_item(
-        Button(
-            label="Support Server",
-            url="https://discord.com/invite/UxJZMUqbsb",
-        )
-    )
-    view.add_item(
-        Button(
-            label="Source",
-            url="https://github.com/Ruu3f/freeGPT-discord",
-        )
-    )
-    await interaction.response.send_message(embed=embed, view=view)
-
-
-@bot.tree.command(name="imagine", description="Generate a image based on a prompt.")
+@bot.tree.command(name="imagine", description="Generate an image based on a prompt.")
 @describe(model=f"Model to use. Choose between {', '.join(imageGenModels)}")
 @describe(prompt="Your prompt.")
 async def imagine(interaction, model: str, prompt: str):
@@ -137,17 +106,26 @@ async def imagine(interaction, model: str, prompt: str):
             f"**Error:** Model not found! Choose a model between `{', '.join(imageGenModels)}`."
         )
         return
+
+    # Checks for NSFW content in the prompt
+    if check_for_nsfw_content(prompt):
+        await interaction.response.send_message(
+            "Request Denied: Blacklisted word detected"
+        )
+        return
+
     try:
         await interaction.response.defer()
         resp = await AsyncClient.create_generation(model, prompt)
-        file = File(fp=BytesIO(resp), filename="image.png", spoiler=True)
+        file = File(fp=BytesIO(resp), filename="image.png", spoiler=True) # You can set spoiler to false if you feel comfortable enough about your blacklisted words list
         await interaction.followup.send(
-            "**Generated image might be NSFW!** Click the spoiler at your own risk.",
+            "Image Generated! (Image marked spiler due to potential NSFW)",
             file=file,
         )
 
     except Exception as e:
         await interaction.followup.send(str(e))
+
 
 
 @bot.tree.command(name="ask", description="Ask a model a question.")
