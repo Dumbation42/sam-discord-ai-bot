@@ -299,6 +299,44 @@ async def on_message(message):
                                 ),
                                 mention_author=False,
                             )
+#Allows you to ping the bot to get a response
+@bot.event
+async def on_message(message):
+    # Ignore messages from the bot itself
+    if message.author == bot.user:
+        return
+
+    # Check if the message starts with a mention of the bot
+    if bot.user.mentioned_in(message):
+        # Split the message into parts
+        parts = message.content.split(maxsplit=2)
+
+        # Check if there are enough parts
+        if len(parts) < 3:
+            await message.channel.send("Not enough information provided.")
+            return
+
+        # Extract the model and prompt from the message content
+        _, model, prompt = parts
+
+        # Set the model to "gpt3" by default if not specified
+        model = model.lower() if model.lower() in textCompModels else "gpt3"
+
+        try:
+            # Simulate typing while processing the message
+            async with message.channel.typing():
+                # Concatenate the global prefix variable with the prompt
+                full_prompt = f"{prefix_variable} {prompt}"
+
+                resp = await AsyncClient.create_completion(model, full_prompt)
+                if len(resp) <= 2000:
+                    await message.channel.send(resp)
+                else:
+                    file = File(fp=BytesIO(resp.encode("utf-8")), filename="message.txt")
+                    await message.channel.send(file=file)
+
+        except Exception as e:
+            await message.channel.send(str(e))
 
 
 if __name__ == "__main__":
