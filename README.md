@@ -30,7 +30,7 @@ this might not install everything, in that case run the script and install the d
 ```python bot.py```
 
 # Difference between freeGPT-discord and SAM
-- One of my largest issues with the original project was its lack of content filtering on image generation, allowing for anything, including illegal content, to be created. The initial reasoning behind this fork was to fix this issue by creating a blacklist that is compared to any prompt given to the image generator. If anything on the list is found in the prompt, the prompt is discarded before any image generation actually begins.
+- One of my largest issues with the original project was its lack of content filtering on image generation, allowing for anything, including illegal content, to be created. The initial reasoning behind this fork was to fix this issue by creating a blacklist that is compared to any prompt given to the image generator. If anything on the list is found in the prompt, the prompt is discarded before any image generation actually begins. (Please note that this method is not the best and a better solution is in the works. If something on the list is found within a word (a** in massive), then the prompt still gets detected as matching with blacklist)
 
 - SAM-based discord bots are able to have more personality in their responses. There is a "prefix" variable created to be inserted right before this prompt. While anything can go in there, the purpose of the variable is to allow for you to ask the ai to respond in a certain way (example: respond as if you were a kind gentleman from great britain during the renaissance era)
 
