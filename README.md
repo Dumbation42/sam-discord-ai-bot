@@ -28,3 +28,10 @@ this might not install everything, in that case run the script and install the d
 6. **Run the Bot:** Open your terminal and run:
 ```cd sam-discord-ai-bot/src ```
 ```python bot.py```
+
+# Difference between freeGPT-discord and SAM
+- One of my largest issues with the original project was its lack of content filtering on image generation, allowing for anything, including illegal content, to be created. The initial reasoning behind this fork was to fix this issue by creating a blacklist that is compared to any prompt given to the image generator. If anything on the list is found in the prompt, the prompt is discarded before any image generation actually begins.
+
+- SAM-based discord bots are able to have more personality in their responses. There is a "prefix" variable created to be inserted right before this prompt. While anything can go in there, the purpose of the variable is to allow for you to ask the ai to respond in a certain way (example: respond as if you were a kind gentleman from great britain during the renaissance era)
+
+- (This part isn't implemented yet) SAM will have the ability to be pinged, and respond as if the /ask command was used. There isn't much to say about this part, it's just something important I feel is needed in an ai bot.
