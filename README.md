@@ -35,3 +35,5 @@ this might not install everything, in that case run the script and install the d
 - SAM-based discord bots are able to have more personality in their responses. There is a "prefix" variable created to be inserted right before this prompt. While anything can go in there, the purpose of the variable is to allow for you to ask the ai to respond in a certain way (example: respond as if you were a kind gentleman from great britain during the renaissance era)
 
 - SAM bots have the ability to be pinged, and respond as if the /ask command was used.
+
+-(Feature in Alpha testing) SAM bots can remember up to 5 previous messages, allowing for the bot to have more context.
