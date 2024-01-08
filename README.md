@@ -8,7 +8,7 @@ https://discord.gg/gNvqqdzF
 
 ## Getting Started:
 
-1. **Download the Source Code:** Start by downloading the bot's source code. ``git clone https://github.com/Dumbation42/sam-discord-ai-bot``
+1. **Download the Source Code:** Start by downloading the bot's source code.
 
 2. **Install Dependencies:** Open your terminal and run:
 ```pip install -r requirements.txt```
